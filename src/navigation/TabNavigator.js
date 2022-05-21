@@ -1,7 +1,6 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { MaterialIcons } from '@expo/vector-icons';
 import Home from "../screens/Home";
 import Category from "../screens/Category";
 import Profile from "../screens/Profile";
@@ -35,7 +34,6 @@ const BottomTabNavigator = () => {
           height: 60,
           backgroundColor: "#15141F",
           borderTopWidth: 0,
-          paddingBottom: 18,
         },
         tabBarShowLabel: false,
         headerShown: false
