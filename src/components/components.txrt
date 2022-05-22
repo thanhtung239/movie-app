@@ -1,13 +1,1 @@
 thư mục này viết các component có thể dùng lại ở nhiều chỗ, ví dụ: input, form, button, ...
-state = {
-    movies: []
-  }
-
-  componentDidMount() {
-    axios.get(`https://api.themoviedb.org/3/trending/movie/week?api_key=e6a1f542151faa8fa248872d0b421cad`)
-      .then(res => {
-        const movies = res.data;
-        this.setState({ movies });
-      })
-  }
-  import axios from 'axios';

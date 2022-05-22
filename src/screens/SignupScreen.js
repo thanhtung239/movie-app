@@ -3,7 +3,7 @@ import { AntDesign } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
-import BottomTabNavigator from "../navigator/TabNavigator";
+
 import { getDatabase, ref, onValue, set, remove, update } from 'firebase/database';
 import {
   StyleSheet,
@@ -11,7 +11,6 @@ import {
   View,
   TouchableOpacity,
   TextInput,
-  Image
 } from "react-native";
 import { Button } from "react-native-web";
 import React, { useState, useEffect } from "react";
@@ -19,32 +18,44 @@ import {
   createUserWithEmailAndPassword,
   onAuthStateChanged,
   signInWithEmailAndPassword,
-  signOut
 } from "@firebase/auth";
 import { auth } from "../config/firebase";
 import { useNavigation } from "@react-navigation/core";
-const Profile = () => {
+const SignUpScreen = () => {
   const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [phoneNumber , setPhoneNumber] = useState("");
   const [birthday , setBirthday] = useState("");
+  const [resetPassword ,setResetPassword] = useState("");
   const navigation = useNavigation();
-  const logOut =() => {
-    signOut(auth).then(() =>{
-        navigation.replace("Login");
-    }).catch((error) => {alert(error.message)})
-}
-  const updateUser = () => {
-    const db = getDatabase();
-     update(ref(db , 'users/' + auth.currentUser.uid) , {  
-       email : email,
-       phoneNumber : phoneNumber,
-       birthday : birthday,
-     }).then(() => {
-       alert("update thanh cong");
-     }).catch((error) => {
-       alert(error);
-     });
-  }
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+      navigation.navigate("Home");
+      }
+    });
+  }, []);
+
+  const handleSingUp = () => {
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        const db = getDatabase();
+        const id = userCredential.user.uid;
+        set(ref(db , 'users/' + id ) , {
+          id : id,
+          email : email,
+          password : password,
+          phoneNumber : phoneNumber,
+          birthday : birthday,
+        }).then(() => {
+          console.log("them thanh cong");
+        }).catch((error) => {
+          alert(error);
+        });
+        console.log(userCredential.user.email);
+      })
+      .catch((error) => alert(error.message))                                                                             ;
+  };
   return (
     <View style={styles.container}>
       {/* header */}
@@ -60,28 +71,17 @@ const Profile = () => {
             size={24}
             color="white"
             style={{ position: "absolute", left: 0 }}
+            onPress = {() => {navigation.goBack()}}
           />
           <Text
             style={{
-              fontSize: 22,
-              color: "white",
+              fontSize: 24,
+              color: "#FF8F71",
               marginBottom: 10,
             }}
           >
-            Tài khoản
+            Đăng Kí
           </Text>
-         <TouchableOpacity style ={{position : "absolute" , right : 20 , top : 4}} onPress ={logOut}>
-         <Text
-            style={{
-              fontSize: 18,
-              color: "#E51937",
-              marginBottom: 10,
-          
-            }}
-          >
-            Đăng xuất
-          </Text>
-         </TouchableOpacity>
         </View>
         <View
           style={{
@@ -93,14 +93,9 @@ const Profile = () => {
       {/* body */}
       <View style={styles.body}>
         {/* user */}
-        <View style ={{flex : 1 , justifyContent : "center" , alignItems : "center"}}>
-          <Image source={{
-          uri: 'https://reactnative.dev/img/tiny_logo.png',
-        }} style ={{position :"absolute" , width :100 , height : 100  , borderRadius : 50  }}></Image>
-        </View>
         <View style={{ flex: 1 }}>
           <View style={{ marginHorizontal: 20, marginBottom: 10 }}>
-            <Text style={styles.text}>Tên</Text>
+            <Text style={styles.text}>Tên đăng nhập</Text>
           </View>
           <View style={styles.Section}>
             <FontAwesome5
@@ -154,21 +149,40 @@ const Profile = () => {
             <TextInput style={styles.input} value ={birthday} onChangeText= {(text) => setBirthday(text)}></TextInput>
           </View>
         </View>
-        <TouchableOpacity style ={{
-          justifyContent : "center",
-          alignItems : "center",
-          marginVertical : 20,
-        }} 
-        onPress ={() => {navigation.navigate("ResetPassword")}}>
-          <Text style = {{fontSize : 16 , color : 'red'}}>Đổi mật khẩu</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style= {styles.button} onPress ={updateUser} >
-            <Text style = {{fontSize : 16 , color : 'white' , fontWeight : "bold"}}>Lưu thay đổi</Text>
-        </TouchableOpacity>
+        <View style={{ flex: 1 }}>
+          <View style={{ marginHorizontal: 20, marginBottom: 10 }}>
+            <Text style={styles.text}>Mật khẩu</Text>
+          </View>
+          <View style={styles.Section}>
+            <MaterialIcons
+              name="lock-outline"
+              size={24}
+              color="#FFFFFF"
+              style={styles.icon}
+            />
+            <TextInput style={styles.input} value = {password} onChangeText = {(text) => setPassword(text)} secureTextEntry></TextInput>
+          </View>
+        </View>
+        <View style={{ flex: 1 }}>
+          <View style={{ marginHorizontal: 20, marginBottom: 10 }}>
+            <Text style={styles.text}>Nhập lại mật khẩu</Text>
+          </View>
+          <View style={styles.Section}>
+            <MaterialIcons
+              name="lock-outline"
+              size={24}
+              color="#FFFFFF"
+              style={styles.icon}
+            />
+            <TextInput style={styles.input} value ={resetPassword} onChangeText = {(text) => setResetPassword(text)}></TextInput>
+          </View>
+        </View>
       </View>
       {/* footer */}
       <View style ={styles.footer}>
-          
+      <TouchableOpacity style= {styles.button} onPress = {handleSingUp}>
+            <Text style = {{fontSize : 16 , color : 'white' , fontWeight : "bold"}}>Tạo tài khoản</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -184,14 +198,13 @@ const styles = StyleSheet.create({
     marginBottom: 30,
   },
   body: {
-    flex: 8,
+    flex: 6,
   },
   footer : {
-    flex :0.1,
-    marginTop : 20
+    flex :1,
   },
   Section: {
-    flex: 1,
+    flex: 0.8,
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
@@ -206,7 +219,6 @@ const styles = StyleSheet.create({
     paddingRight: 10,
     paddingBottom: 10,
     paddingLeft: 0,
-    backgroundColor: "#2B3543",
     color: "white",
     fontSize: 16,
   },
@@ -227,4 +239,4 @@ const styles = StyleSheet.create({
     marginHorizontal : 20,
   },
 });
-export default Profile;
+export default SignUpScreen;

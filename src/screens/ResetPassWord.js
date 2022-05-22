@@ -11,39 +11,39 @@ import {
   View,
   TouchableOpacity,
   TextInput,
-  Image
+  Image,
+  Alert
 } from "react-native";
-import { Button } from "react-native-web";
+
 import React, { useState, useEffect } from "react";
 import {
   createUserWithEmailAndPassword,
   onAuthStateChanged,
   signInWithEmailAndPassword,
-  signOut
+  signOut,
+  updatePassword
 } from "@firebase/auth";
 import { auth } from "../config/firebase";
 import { useNavigation } from "@react-navigation/core";
-const Profile = () => {
-  const [email, setEmail] = useState("");
-  const [phoneNumber , setPhoneNumber] = useState("");
-  const [birthday , setBirthday] = useState("");
+const ResetPassword = () => {
+  const [passWord , setPassword] = useState("");
+  const [resetPassword ,setResetPassword] = useState("");
+  const [newPassword ,setNewPassword] = useState("");
   const navigation = useNavigation();
-  const logOut =() => {
-    signOut(auth).then(() =>{
-        navigation.replace("Login");
-    }).catch((error) => {alert(error.message)})
-}
-  const updateUser = () => {
-    const db = getDatabase();
-     update(ref(db , 'users/' + auth.currentUser.uid) , {  
-       email : email,
-       phoneNumber : phoneNumber,
-       birthday : birthday,
-     }).then(() => {
-       alert("update thanh cong");
-     }).catch((error) => {
-       alert(error);
-     });
+  const update = () => {
+      if(newPassword == resetPassword) {
+          updatePassword(auth.currentUser , newPassword).then(()=>{
+              Alert.alert("thay doi thanh cong");
+              navigation.goBack();
+          }).catch((error) => {
+
+                Alert.error(error.message);
+          })
+          
+      }
+      else {
+            console.log("thay doi k dc");
+      }
   }
   return (
     <View style={styles.container}>
@@ -60,6 +60,7 @@ const Profile = () => {
             size={24}
             color="white"
             style={{ position: "absolute", left: 0 }}
+            onPress ={() => navigation.goBack()}
           />
           <Text
             style={{
@@ -70,18 +71,6 @@ const Profile = () => {
           >
             Tài khoản
           </Text>
-         <TouchableOpacity style ={{position : "absolute" , right : 20 , top : 4}} onPress ={logOut}>
-         <Text
-            style={{
-              fontSize: 18,
-              color: "#E51937",
-              marginBottom: 10,
-          
-            }}
-          >
-            Đăng xuất
-          </Text>
-         </TouchableOpacity>
         </View>
         <View
           style={{
@@ -100,7 +89,7 @@ const Profile = () => {
         </View>
         <View style={{ flex: 1 }}>
           <View style={{ marginHorizontal: 20, marginBottom: 10 }}>
-            <Text style={styles.text}>Tên</Text>
+            <Text style={styles.text}>Mật khẩu cũ</Text>
           </View>
           <View style={styles.Section}>
             <FontAwesome5
@@ -109,12 +98,12 @@ const Profile = () => {
               color="#FFFFFF"
               style={styles.icon}
             />
-            <TextInput style={styles.input} value = {email} onChangeText = {(text) => setEmail(text)}></TextInput>
+            <TextInput style={styles.input} value = {passWord} onChangeText = {(text) => setPassword(text)} secureTextEntry></TextInput>
           </View>
         </View>
         <View style={{ flex: 1 }}>
           <View style={{ marginHorizontal: 20, marginBottom: 10 }}>
-            <Text style={styles.text}>Email</Text>
+            <Text style={styles.text}>Mật khẩu mới</Text>
           </View>
           <View style={styles.Section}>
             <MaterialIcons
@@ -123,12 +112,12 @@ const Profile = () => {
               color="#FFFFFF"
               style={styles.icon}
             />
-            <TextInput style={styles.input} value = {email}></TextInput>
+            <TextInput style={styles.input} value = {newPassword} onChangeText ={(text) => setNewPassword(text)} secureTextEntry></TextInput>
           </View>
         </View>
-        <View style={{ flex: 1 }}>
+        <View style={{ flex: 1}} >
           <View style={{ marginHorizontal: 20, marginBottom: 10 }}>
-            <Text style={styles.text}>Điện thoại</Text>
+            <Text style={styles.text}>Nhập lại mật khẩu</Text>
           </View>
           <View style={styles.Section}>
             <MaterialIcons
@@ -137,32 +126,10 @@ const Profile = () => {
               color="#FFFFFF"
               style={styles.icon}
             />
-            <TextInput style={styles.input} value ={phoneNumber} onChangeText = {(text) => setPhoneNumber(text)}></TextInput>
+            <TextInput style={styles.input} value ={resetPassword} onChangeText = {(text) => setResetPassword(text)} secureTextEntry></TextInput>
           </View>
         </View>
-        <View style={{ flex: 1 }}>
-          <View style={{ marginHorizontal: 20, marginBottom: 10 }}>
-            <Text style={styles.text}>Sinh nhật</Text>
-          </View>
-          <View style={styles.Section}>
-            <FontAwesome5
-              name="birthday-cake"
-              size={24}
-              color="#FFFFFF"
-              style={styles.icon}
-            />
-            <TextInput style={styles.input} value ={birthday} onChangeText= {(text) => setBirthday(text)}></TextInput>
-          </View>
-        </View>
-        <TouchableOpacity style ={{
-          justifyContent : "center",
-          alignItems : "center",
-          marginVertical : 20,
-        }} 
-        onPress ={() => {navigation.navigate("ResetPassword")}}>
-          <Text style = {{fontSize : 16 , color : 'red'}}>Đổi mật khẩu</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style= {styles.button} onPress ={updateUser} >
+        <TouchableOpacity style= {styles.button} onPress ={update} >
             <Text style = {{fontSize : 16 , color : 'white' , fontWeight : "bold"}}>Lưu thay đổi</Text>
         </TouchableOpacity>
       </View>
@@ -184,14 +151,14 @@ const styles = StyleSheet.create({
     marginBottom: 30,
   },
   body: {
-    flex: 8,
+    flex: 5,
   },
   footer : {
-    flex :0.1,
+    flex :1,
     marginTop : 20
   },
   Section: {
-    flex: 1,
+    flex: 0.9,
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
@@ -225,6 +192,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#E51937",
     borderRadius: 10,
     marginHorizontal : 20,
+    marginTop : 40,
   },
 });
-export default Profile;
+export default ResetPassword;
