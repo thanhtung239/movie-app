@@ -7,7 +7,7 @@ import NewMovieCarousel from "../components/NewMovieCarousel";
 import TVShowCarousel from "../components/TVShowCarousel";
 import HotActorCarousel from "../components/HotActorCarousel";
 
-const Home = () => {
+const Home = ({navigation}) => {
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView style={styles.scrollView}>
@@ -26,7 +26,7 @@ const Home = () => {
         </View>
         <View style={styles.carouselContainer}>
           <Text style={styles.carouselTitle}>Phim hot</Text>
-          <HotMovieCarousel />
+          <HotMovieCarousel navigation={navigation}/>
         </View>
         <View style={styles.carouselContainer}>
           <Text style={styles.carouselTitle}>TV show</Text>
