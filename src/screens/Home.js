@@ -1,8 +1,8 @@
 import React from "react";
 import { ScrollView, View, Text, StyleSheet, StatusBar } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { MaterialCommunityIcons } from '@expo/vector-icons';
-import HotMovieCarousel  from "../components/HotMovieCarousel";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import HotMovieCarousel from "../components/HotMovieCarousel";
 import NewMovieCarousel from "../components/NewMovieCarousel";
 import TVShowCarousel from "../components/TVShowCarousel";
 import HotActorCarousel from "../components/HotActorCarousel";
@@ -14,15 +14,19 @@ const Home = () => {
         <View style={styles.header}>
           <MaterialCommunityIcons name="movie-roll" size={54} color="tomato" />
           <View style={styles.headerTitle}>
-            <Text style= {{
-              color: 'white',
-              fontSize: 30
-            }}>Trang chủ</Text>
+            <Text
+              style={{
+                color: "white",
+                fontSize: 30,
+              }}
+            >
+              Trang chủ
+            </Text>
           </View>
         </View>
         <View style={styles.carouselContainer}>
           <Text style={styles.carouselTitle}>Cooming soon</Text>
-          <NewMovieCarousel/>
+          <NewMovieCarousel />
         </View>
         <View style={styles.carouselContainer}>
           <Text style={styles.carouselTitle}>Phim hot</Text>
@@ -59,19 +63,18 @@ const styles = StyleSheet.create({
     marginTop: 30,
   },
   header: {
-    display: 'flex',
-    flexDirection: 'row',
+    display: "flex",
+    flexDirection: "row",
     marginTop: 30,
-    paddingLeft: 20
-
+    paddingLeft: 20,
   },
   headerTitle: {
-    color: 'white',
+    color: "white",
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'start',
-    marginLeft: 10
-  }
+    justifyContent: "center",
+    alignItems: "flex-start",
+    marginLeft: 10,
+  },
 });
 
 export default Home;
