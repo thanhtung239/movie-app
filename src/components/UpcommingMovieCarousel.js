@@ -1,16 +1,18 @@
-import React, { useRef, useState, useEffect } from 'react';
-import axios from 'axios';
-import Carousel, { ParallaxImage, Pagination } from 'react-native-snap-carousel';
-import { View, Dimensions, StyleSheet, Platform } from 'react-native';
-
+import React, { useRef, useState, useEffect } from "react";
+import axios from "axios";
+import Carousel, {
+  ParallaxImage,
+  Pagination,
+} from "react-native-snap-carousel";
+import { View, Dimensions, StyleSheet, Platform } from "react-native";
 
 const horizontalMargin = 4;
 const slideWidth = 200;
-const sliderWidth = Dimensions.get('window').width;
+const sliderWidth = Dimensions.get("window").width;
 const itemWidth = slideWidth + horizontalMargin * 2;
 const itemHeight = 300;
 
-const HotMovieCarousel = () => {
+const UpcommingMovieCarousel = () => {
   const [entries, setEntries] = useState([]);
   const [index, setIndex] = React.useState(0);
   const carouselRef = useRef(null);
@@ -43,7 +45,6 @@ const HotMovieCarousel = () => {
           />
         </View>
       </View>
-
     );
   };
 
@@ -72,7 +73,7 @@ const HotMovieCarousel = () => {
             height: 10,
             borderRadius: 5,
             marginHorizontal: 8,
-            backgroundColor: 'rgba(255, 255, 255, 0.92)'
+            backgroundColor: "rgba(255, 255, 255, 0.92)",
           }}
           inactiveDotOpacity={0.4}
           inactiveDotScale={0.6}
@@ -94,27 +95,27 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 16,
     marginTop: 10,
-    marginLeft: horizontalMargin
+    marginLeft: horizontalMargin,
   },
   slide: {
     width: itemWidth,
     height: itemHeight,
-    paddingHorizontal: horizontalMargin
+    paddingHorizontal: horizontalMargin,
   },
   slideInnerContainer: {
     width: slideWidth,
     flex: 1,
-    resizeMode: 'contain',
+    resizeMode: "contain",
   },
   carouselContainer: {
     flex: 1,
     width: sliderWidth - 60,
-    backgroundColor: '#15141F',
+    backgroundColor: "#15141F",
     borderRadius: 8,
     marginHorizontal: 30,
-    justifyContent: 'center',
-    alignItems: 'center'
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
 
-export default HotMovieCarousel;
+export default UpcommingMovieCarousel;

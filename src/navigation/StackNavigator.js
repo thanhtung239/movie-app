@@ -1,9 +1,11 @@
 import * as React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import MovieDetail from "../screens/MovieDetail";
-import Home from "../screens/Home";
 import BottomTabNavigator from "./TabNavigator";
-
+import LoginScreen from "../screens/LoginScreen"
+import Profile from '../screens/Profile';
+import ResetPassWord from "../screens/ResetPassWord";
+import SignupScreen from "../screens/SignupScreen"
 const HomeStack = createStackNavigator();
 
 const HomeStackNavigator = () => {
@@ -26,6 +28,27 @@ const HomeStackNavigator = () => {
         component={MovieDetail}
         options={{
           title: "MovieDetail",
+        }}
+      />
+      <HomeStack.Screen
+        name="Login"
+        component= {LoginScreen}
+        options={{
+          title: "Login",
+        }}
+      />
+      <HomeStack.Screen
+        name="SignUp"
+        component={SignupScreen}
+        options={{
+          title: "SignUp",
+        }}
+      />
+      <HomeStack.Screen
+        name="ResetPassword"
+        component={ResetPassWord}
+        options={{
+          title: "Reset",
         }}
       />
     </HomeStack.Navigator>

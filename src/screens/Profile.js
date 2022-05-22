@@ -24,7 +24,8 @@ import {
 import { auth } from "../config/firebase";
 import { useNavigation } from "@react-navigation/core";
 const Profile = () => {
-  const [email, setEmail] = useState("");
+  const [name , setName] = useState("");
+  const [email, setEmail] = useState(auth.currentUser.email);
   const [phoneNumber , setPhoneNumber] = useState("");
   const [birthday , setBirthday] = useState("");
   const navigation = useNavigation();
@@ -36,7 +37,8 @@ const Profile = () => {
   const updateUser = () => {
     const db = getDatabase();
      update(ref(db , 'users/' + auth.currentUser.uid) , {  
-       email : email,
+       name : name,
+      email : email,
        phoneNumber : phoneNumber,
        birthday : birthday,
      }).then(() => {
@@ -109,7 +111,7 @@ const Profile = () => {
               color="#FFFFFF"
               style={styles.icon}
             />
-            <TextInput style={styles.input} value = {email} onChangeText = {(text) => setEmail(text)}></TextInput>
+            <TextInput style={styles.input} value = {name} onChangeText = {(text) => setName(text)}></TextInput>
           </View>
         </View>
         <View style={{ flex: 1 }}>
@@ -123,7 +125,7 @@ const Profile = () => {
               color="#FFFFFF"
               style={styles.icon}
             />
-            <TextInput style={styles.input} value = {email}></TextInput>
+            <TextInput style={styles.input} value = {email} onChangeText ={(text)=> setEmail(text)}></TextInput>
           </View>
         </View>
         <View style={{ flex: 1 }}>
