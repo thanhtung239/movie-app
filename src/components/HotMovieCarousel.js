@@ -2,6 +2,7 @@ import React, { useRef, useState, useEffect } from 'react';
 import axios from 'axios';
 import Carousel, { ParallaxImage } from 'react-native-snap-carousel';
 import { View, Text, Dimensions, StyleSheet, Platform } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 
 const horizontalMargin = 4;
@@ -10,7 +11,7 @@ const sliderWidth = Dimensions.get('window').width;
 const itemWidth = slideWidth + horizontalMargin * 2;
 const itemHeight = 300;
 
-const HotMovieCarousel = () => {
+const HotMovieCarousel = ({ navigation }) => {
   const [entries, setEntries] = useState([]);
   const carouselRef = useRef(null);
   
@@ -19,7 +20,6 @@ const HotMovieCarousel = () => {
     const fetchMovies = async () => {
       try {
         const response = await axios.get(url);
-        // console.log(response.data.results);
         setEntries(response.data.results);
       } catch (error) {
         console.error(error);
@@ -33,19 +33,27 @@ const HotMovieCarousel = () => {
     return (
       <View>
         <View style={styles.slide}>
-          <ParallaxImage
-            source={{ uri: basePosterPath + item.poster_path }}
-            containerStyle={styles.imageContainer}
-            style={styles.slideInnerContainer}
-            parallaxFactor={0.6}
-            {...parallaxProps}
-          />
+          <TouchableOpacity 
+            onPress={() => navigation.navigate("MovieDetail")}
+            style={{
+              backgroundColor: '#15141F',
+              width: itemWidth,
+              height: itemHeight
+            }}
+          >
+            <ParallaxImage
+              source={{ uri: basePosterPath + item.poster_path }}
+              containerStyle={styles.imageContainer}
+              style={styles.slideInnerContainer}
+              parallaxFactor={0.6}
+              {...parallaxProps}
+            />
+          </TouchableOpacity>
         </View>
         <Text style={styles.titleItem} numberOfLines={3}>
           {item.title}
         </Text>
       </View>
-      
     );
   };
 
