@@ -1,6 +1,8 @@
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
-import HomeStackNavigator from "./src/navigator/StackNavigator"
+import HomeStackNavigator from "./src/navigator/StackNavigator";
+import {LogBox} from 'react-native'
+LogBox.ignoreAllLogs(true)
 const App = () => {
   return (
     <NavigationContainer>
@@ -8,5 +10,4 @@ const App = () => {
     </NavigationContainer>
   );
 }
-
 export default App;

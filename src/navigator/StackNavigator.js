@@ -5,7 +5,8 @@ import BottomTabNavigator from "./TabNavigator";
 import LoginScreen from "../screens/LoginScreen"
 import Profile from '../screens/Profile';
 import ResetPassWord from "../screens/ResetPassWord";
-import SignupScreen from "../screens/SignupScreen"
+import SignupScreen from "../screens/SignupScreen";
+import TvShowDetail from "../screens/TvShowDetail";
 const HomeStack = createStackNavigator();
 
 const HomeStackNavigator = () => {
@@ -16,6 +17,13 @@ const HomeStackNavigator = () => {
       }}
       screenOptions={{ headerShown: false }}
     >
+    <HomeStack.Screen
+        name="Login"
+        component= {LoginScreen}
+        options={{
+          title: "Login",
+        }}
+      />
       <HomeStack.Screen
         name="Home"
         component={BottomTabNavigator}
@@ -28,13 +36,6 @@ const HomeStackNavigator = () => {
         component={MovieDetail}
         options={{
           title: "MovieDetail",
-        }}
-      />
-      <HomeStack.Screen
-        name="Login"
-        component= {LoginScreen}
-        options={{
-          title: "Login",
         }}
       />
       <HomeStack.Screen
@@ -51,8 +52,16 @@ const HomeStackNavigator = () => {
           title: "Reset",
         }}
       />
+    <HomeStack.Screen
+        name="TvShowDetail"
+        component={TvShowDetail}
+        options={{
+          title: "TvShowDetail",
+        }}
+      />
     </HomeStack.Navigator>
   );
 };
 
 export default HomeStackNavigator;
+

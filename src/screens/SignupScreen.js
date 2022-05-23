@@ -174,7 +174,7 @@ const SignUpScreen = () => {
               color="#FFFFFF"
               style={styles.icon}
             />
-            <TextInput style={styles.input} value ={resetPassword} onChangeText = {(text) => setResetPassword(text)}></TextInput>
+            <TextInput secureTextEntry style={styles.input} value ={resetPassword} onChangeText = {(text) => setResetPassword(text)}></TextInput>
           </View>
         </View>
       </View>

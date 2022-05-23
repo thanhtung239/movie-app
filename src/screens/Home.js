@@ -14,10 +14,14 @@ const Home = ({navigation}) => {
         <View style={styles.header}>
           <MaterialCommunityIcons name="movie-roll" size={54} color="tomato" />
           <View style={styles.headerTitle}>
-            <Text style= {{
-              color: 'white',
-              fontSize: 30
-            }}>Trang chủ</Text>
+            <Text
+              style={{
+                color: "white",
+                fontSize: 30,
+              }}
+            >
+              Trang chủ
+            </Text>
           </View>
         </View>
         <View style={styles.carouselContainer}>
@@ -30,7 +34,7 @@ const Home = ({navigation}) => {
         </View>
         <View style={styles.carouselContainer}>
           <Text style={styles.carouselTitle}>TV show</Text>
-          <TVShowCarousel />
+          <TVShowCarousel navigation={navigation}/>
         </View>
         <View style={styles.carouselContainer}>
           <Text style={styles.carouselTitle}>Diễn viên hot</Text>
@@ -59,19 +63,18 @@ const styles = StyleSheet.create({
     marginTop: 30,
   },
   header: {
-    display: 'flex',
-    flexDirection: 'row',
+    display: "flex",
+    flexDirection: "row",
     marginTop: 30,
-    paddingLeft: 20
-
+    paddingLeft: 20,
   },
   headerTitle: {
-    color: 'white',
+    color: "white",
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'start',
-    marginLeft: 10
-  }
+    justifyContent: "center",
+    alignItems: "flex-start",
+    marginLeft: 10,
+  },
 });
 
 export default Home;

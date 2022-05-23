@@ -32,7 +32,7 @@ const Category = () => {
   const [selected, setSelected] = useState({});
 
   let [fontsLoaded] = useFonts({
-    "Lato": require("../../assets/fonts/Lato-Regular.ttf"),
+    Lato: require("../../assets/fonts/Lato-Regular.ttf"),
     "Lato-Bold": require("../../assets/fonts/Lato-Bold.ttf"),
   });
 
@@ -50,6 +50,7 @@ const Category = () => {
 
   // useEffect(() => {
   const search = async () => {
+    if(state.s !== ""){
     try {
       const response = await axios.get(
         apiurl + convertString(state.s) + "&language=vi"
@@ -58,6 +59,7 @@ const Category = () => {
     } catch (error) {
       console.error(error);
     }
+  }
   };
 
   const openPopup = async (id) => {
@@ -277,4 +279,6 @@ const styles = StyleSheet.create({
 });
 
 
+
 export default Category;
+

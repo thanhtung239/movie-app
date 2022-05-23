@@ -3,7 +3,6 @@ import { AntDesign } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
-import BottomTabNavigator from "../navigator/TabNavigator";
 import { getDatabase, ref, onValue, set, remove, update } from 'firebase/database';
 import {
   StyleSheet,
@@ -36,10 +35,8 @@ const ResetPassword = () => {
               Alert.alert("thay doi thanh cong");
               navigation.goBack();
           }).catch((error) => {
-
-                Alert.error(error.message);
+                console.log(error);
           })
-          
       }
       else {
             console.log("thay doi k dc");
@@ -92,8 +89,8 @@ const ResetPassword = () => {
             <Text style={styles.text}>Mật khẩu cũ</Text>
           </View>
           <View style={styles.Section}>
-            <FontAwesome5
-              name="user"
+          <MaterialIcons
+              name="lock-outline"
               size={24}
               color="#FFFFFF"
               style={styles.icon}
@@ -106,8 +103,8 @@ const ResetPassword = () => {
             <Text style={styles.text}>Mật khẩu mới</Text>
           </View>
           <View style={styles.Section}>
-            <MaterialIcons
-              name="email"
+          <MaterialIcons
+              name="lock-outline"
               size={24}
               color="#FFFFFF"
               style={styles.icon}
@@ -120,8 +117,8 @@ const ResetPassword = () => {
             <Text style={styles.text}>Nhập lại mật khẩu</Text>
           </View>
           <View style={styles.Section}>
-            <MaterialIcons
-              name="phone-iphone"
+          <MaterialIcons
+              name="lock-outline"
               size={24}
               color="#FFFFFF"
               style={styles.icon}

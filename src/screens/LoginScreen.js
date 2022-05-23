@@ -91,7 +91,7 @@ const LoginScreen = () => {
         </View>
         <View style={styles.passWord}>
           <Text style={styles.text}>Mật khẩu</Text>
-          <TextInput style={styles.textInput} value = {password} onChangeText ={(text) => setPassword(text)}></TextInput>
+          <TextInput style={styles.textInput} value = {password} onChangeText ={(text) => setPassword(text)} secureTextEntry></TextInput>
         </View>
         <View style={{ alignItems: "center", marginTop: 30 }}>
           <Text style={{ color: "#FFFFFF", opacity: 0.5 }}>Quên mật khẩu?</Text>
