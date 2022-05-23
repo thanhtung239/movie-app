@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import MovieDetail from "../screens/MovieDetail";
+import TvShowDetail from "../screens/TvShowDetail";
 import Home from "../screens/Home";
 import BottomTabNavigator from "./TabNavigator";
 
@@ -26,6 +27,13 @@ const HomeStackNavigator = () => {
         component={MovieDetail}
         options={{
           title: "MovieDetail",
+        }}
+      />
+      <HomeStack.Screen
+        name="TvShowDetail"
+        component={TvShowDetail}
+        options={{
+          title: "TvShowDetail",
         }}
       />
     </HomeStack.Navigator>

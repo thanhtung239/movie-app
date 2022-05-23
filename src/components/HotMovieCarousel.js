@@ -34,7 +34,9 @@ const HotMovieCarousel = ({ navigation }) => {
       <View>
         <View style={styles.slide}>
           <TouchableOpacity 
-            onPress={() => navigation.navigate("MovieDetail")}
+            onPress={() => navigation.navigate("MovieDetail", {
+              id: item.id
+            })}
             style={{
               backgroundColor: '#15141F',
               width: itemWidth,

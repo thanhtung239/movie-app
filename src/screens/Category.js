@@ -120,24 +120,25 @@ const Category = () => {
         visible={typeof selected.title !== "undefined"}
       >
         <View style={styles.modal}>
+          <Image
+            source={{ uri: imageurl + selected.backdrop_path }}
+            style={styles.detailImage}
+            resizeMode="contain"
+          />
           <Pressable
             onPress={() =>
               setSelected(() => {
                 return {};
               })
             }
+            style={styles.backButton}
           >
-            <Ionicons name="chevron-back-sharp" size={30} color="white" />
+            <Ionicons name="chevron-back-sharp" size={35} color="white" />
           </Pressable>
-          <Image
-            source={{ uri: imageurl + selected.backdrop_path }}
-            style={styles.detailImage}
-            resizeMode="contain"
-          />
           <Text style={styles.detailTitle}>{selected.title}</Text>
           <View style={styles.detailContainer}>
             <View style={{ flexDirection: "row" }}>
-              <MaterialIcons name="access-time" size={24} color="white" />
+              <MaterialIcons name="access-time" size={24} color="white" style={{ marginLeft: 5 }} />
               <Text style={styles.detailText}>{selected.runtime} phút</Text>
             </View>
             <View style={{ flexDirection: "row" }}>
@@ -149,7 +150,7 @@ const Category = () => {
           </View>
           <View style={styles.detailContainer}>
             <View style={{ flexDirection: "row" }}>
-              <AntDesign name="calendar" size={24} color="white" />
+              <AntDesign name="calendar" size={24} color="white" style={{ marginLeft: 5 }} />
               <Text style={styles.detailText}>
                 Ngày công chiếu: {reformatDate(selected.release_date)}
               </Text>
@@ -169,9 +170,6 @@ const styles = StyleSheet.create({
   center: {
     flex: 1,
     justifyContent: "flex-start",
-    // alignItems: "center",
-    // textAlign: "center",
-    // color: "white",
   },
   searchView: {
     alignItems: "center",
@@ -231,12 +229,14 @@ const styles = StyleSheet.create({
     fontSize: 30,
     marginBottom: 15,
     paddingBottom: 20,
+    paddingHorizontal: 7,
     fontFamily: "Lato-Bold",
     borderBottomWidth: StyleSheet.hairlineWidth,
     borderBottomColor: "white",
   },
   detailText: {
     marginLeft: 5,
+    paddingHorizontal: 5,
     color: "white",
     fontSize: 18,
     fontFamily: "Lato",
@@ -262,12 +262,19 @@ const styles = StyleSheet.create({
     lineHeight: 20,
   },
   overviewTitle: {
-    marginLeft: 5,
+    marginLeft: 10,
     color: "white",
     fontSize: 30,
     fontFamily: "Lato",
     paddingBottom: 10,
   },
+  backButton: {
+    position: 'absolute',
+    top: 15,
+    left: 4,
+    opacity: 0.5
+  }
 });
+
 
 export default Category;

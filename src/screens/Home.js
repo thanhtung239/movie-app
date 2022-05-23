@@ -3,7 +3,7 @@ import { ScrollView, View, Text, StyleSheet, StatusBar } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import HotMovieCarousel from "../components/HotMovieCarousel";
-import NewMovieCarousel from "../components/NewMovieCarousel";
+import UpcommingMovieCarousel from "../components/UpcommingMovieCarousel";
 import TVShowCarousel from "../components/TVShowCarousel";
 import HotActorCarousel from "../components/HotActorCarousel";
 
@@ -26,7 +26,7 @@ const Home = ({navigation}) => {
         </View>
         <View style={styles.carouselContainer}>
           <Text style={styles.carouselTitle}>Cooming soon</Text>
-          <NewMovieCarousel />
+          <UpcommingMovieCarousel />
         </View>
         <View style={styles.carouselContainer}>
           <Text style={styles.carouselTitle}>Phim hot</Text>
@@ -34,7 +34,7 @@ const Home = ({navigation}) => {
         </View>
         <View style={styles.carouselContainer}>
           <Text style={styles.carouselTitle}>TV show</Text>
-          <TVShowCarousel />
+          <TVShowCarousel navigation={navigation}/>
         </View>
         <View style={styles.carouselContainer}>
           <Text style={styles.carouselTitle}>Diễn viên hot</Text>
