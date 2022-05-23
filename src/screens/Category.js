@@ -50,7 +50,7 @@ const Category = () => {
 
   // useEffect(() => {
   const search = async () => {
-    if(state.s !== ""){
+    if (state.s !== "") {
     try {
       const response = await axios.get(
         apiurl + convertString(state.s) + "&language=vi"
@@ -112,35 +112,31 @@ const Category = () => {
         data={entries}
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
-        //contentContainerStyle={{ flex: 1 }}
-        // columnWrapperStyle={{ justifyContent: 'space-between' }}
       />
-
       <Modal
         animationType="fade"
         transparent={false}
         visible={typeof selected.title !== "undefined"}
       >
         <View style={styles.modal}>
-          <Image
-            source={{ uri: imageurl + selected.backdrop_path }}
-            style={styles.detailImage}
-            resizeMode="contain"
-          />
           <Pressable
             onPress={() =>
               setSelected(() => {
                 return {};
               })
             }
-            style={styles.backButton}
           >
-            <Ionicons name="chevron-back-sharp" size={35} color="white" />
+            <Ionicons name="chevron-back-sharp" size={30} color="white" />
           </Pressable>
+          <Image
+            source={{ uri: imageurl + selected.backdrop_path }}
+            style={styles.detailImage}
+            resizeMode="contain"
+          />
           <Text style={styles.detailTitle}>{selected.title}</Text>
           <View style={styles.detailContainer}>
             <View style={{ flexDirection: "row" }}>
-              <MaterialIcons name="access-time" size={24} color="white" style={{ marginLeft: 5 }} />
+              <MaterialIcons name="access-time" size={24} color="white" />
               <Text style={styles.detailText}>{selected.runtime} phút</Text>
             </View>
             <View style={{ flexDirection: "row" }}>
@@ -152,16 +148,19 @@ const Category = () => {
           </View>
           <View style={styles.detailContainer}>
             <View style={{ flexDirection: "row" }}>
-              <AntDesign name="calendar" size={24} color="white" style={{ marginLeft: 5 }} />
+              <AntDesign name="calendar" size={24} color="white" />
               <Text style={styles.detailText}>
                 Ngày công chiếu: {reformatDate(selected.release_date)}
               </Text>
             </View>
           </View>
-            <ScrollView contentContainerStyle={{ flexGrow: 1, paddingBottom: 20 }} style={styles.overviewContainer}>
-              <Text style={styles.overviewTitle}>Tóm tắt</Text>
-              <Text style={styles.overviewText}>{selected.overview}</Text>
-            </ScrollView>
+          <ScrollView
+            contentContainerStyle={{ flexGrow: 1, paddingBottom: 20 }}
+            style={styles.overviewContainer}
+          >
+            <Text style={styles.overviewTitle}>Tóm tắt</Text>
+            <Text style={styles.overviewText}>{selected.overview}</Text>
+          </ScrollView>
         </View>
       </Modal>
     </SafeAreaView>
@@ -172,6 +171,9 @@ const styles = StyleSheet.create({
   center: {
     flex: 1,
     justifyContent: "flex-start",
+    // alignItems: "center",
+    // textAlign: "center",
+    // color: "white",
   },
   searchView: {
     alignItems: "center",
@@ -231,14 +233,12 @@ const styles = StyleSheet.create({
     fontSize: 30,
     marginBottom: 15,
     paddingBottom: 20,
-    paddingHorizontal: 7,
     fontFamily: "Lato-Bold",
     borderBottomWidth: StyleSheet.hairlineWidth,
     borderBottomColor: "white",
   },
   detailText: {
     marginLeft: 5,
-    paddingHorizontal: 5,
     color: "white",
     fontSize: 18,
     fontFamily: "Lato",
@@ -264,21 +264,12 @@ const styles = StyleSheet.create({
     lineHeight: 20,
   },
   overviewTitle: {
-    marginLeft: 10,
+    marginLeft: 5,
     color: "white",
     fontSize: 30,
     fontFamily: "Lato",
     paddingBottom: 10,
   },
-  backButton: {
-    position: 'absolute',
-    top: 15,
-    left: 4,
-    opacity: 0.5
-  }
 });
 
-
-
 export default Category;
-
