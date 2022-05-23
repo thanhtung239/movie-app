@@ -4,10 +4,10 @@ import axios from "axios";
 import { Ionicons, MaterialIcons, AntDesign } from "@expo/vector-icons";
 import { useFonts } from "expo-font";
 
-const MovieDetail = ({ route, navigation }) => {
-  
+const TvShowDetail = ({ route, navigation }) => {
+
   const imageRrl = "https://image.tmdb.org/t/p/original/";
-  const detailUrl = "https://api.themoviedb.org/3/movie/";
+  const detailUrl = "https://api.themoviedb.org/3/tv/";
   const optionUrl =
     "?api_key=e6a1f542151faa8fa248872d0b421cad&language=vi&append_to_response=videos";
 
@@ -28,10 +28,10 @@ const MovieDetail = ({ route, navigation }) => {
     }
     return;
   };
-  
+
 
   useEffect(() => {
-    const getMovieDetail = async () => {
+    const getTvShowDetail = async () => {
       const itemId = route.params.id;
       console.log(detailUrl + itemId + optionUrl);
       try {
@@ -42,7 +42,7 @@ const MovieDetail = ({ route, navigation }) => {
         console.error(error);
       }
     };
-    getMovieDetail();
+    getTvShowDetail();
   }, []);
 
   return (
@@ -59,7 +59,7 @@ const MovieDetail = ({ route, navigation }) => {
         >
           <Ionicons name="chevron-back-sharp" size={35} color="white" />
         </Pressable>
-        <Text style={styles.detailTitle}>{entries.title}</Text>
+        <Text style={styles.detailTitle}>{entries.name}</Text>
         <View style={styles.detailContainer}>
           <View style={{ flexDirection: "row" }}>
             <MaterialIcons name="access-time" size={24} color="white" style={{ marginLeft: 5 }} />
@@ -152,7 +152,7 @@ const styles = StyleSheet.create({
     fontSize: 30,
     marginBottom: 15,
     paddingBottom: 20,
-    paddingHorizontal:7,
+    paddingHorizontal: 7,
     fontFamily: "Lato-Bold",
     borderBottomWidth: StyleSheet.hairlineWidth,
     borderBottomColor: "white",
@@ -199,4 +199,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default MovieDetail;
+export default TvShowDetail;

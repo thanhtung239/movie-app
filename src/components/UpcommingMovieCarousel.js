@@ -12,7 +12,7 @@ const sliderWidth = Dimensions.get("window").width;
 const itemWidth = slideWidth + horizontalMargin * 2;
 const itemHeight = 300;
 
-const HotMovieCarousel = () => {
+const UpcommingMovieCarousel = () => {
   const [entries, setEntries] = useState([]);
   const [index, setIndex] = React.useState(0);
   const carouselRef = useRef(null);
@@ -118,4 +118,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default HotMovieCarousel;
+export default UpcommingMovieCarousel;
